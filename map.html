@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan Kerala road journeys with an interactive map, approximate distances, driving times, recommended stops and matching Visit Kerala itineraries.">
+    <title>Interactive Kerala Map | Visit Kerala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="leaflet.css?v=1.9.4">
+    <link rel="stylesheet" href="style.css?v=20260804-enquiry1">
+    <link rel="stylesheet" href="map.css?v=20260802-audio2">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%2064%2064%22><rect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22%23062217%22/><text x=%2232%22 y=%2246%22 font-size=%2246%22 text-anchor=%22middle%22 fill=%22%23c59d4b%22>%26</text></svg>">
+</head>
+<body id="top" class="map-page">
+<nav class="navbar scrolled">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><span class="text-gold">&amp;</span> VISIT KERALA</a>
+        <ul class="nav-links" id="primary-navigation"><li><a href="index.html">Home</a></li><li><a href="destinations.html">Destinations</a></li><li><a href="itineraries.html">Plans</a></li><li><a href="map.html" class="active" aria-current="page">Map</a></li><li><a href="experiences.html">Experiences</a></li><li><a href="travel-info.html">Travel Info</a></li><li><a href="reviews.html">Reviews</a></li></ul>
+        <div class="nav-actions">
+            <a href="Visit-Kerala-Travel-Brochure.pdf" download="Visit-Kerala-Travel-Brochure.pdf" class="btn-nav brochure-nav-cta" aria-label="Download Kerala brochure"><i class="fa-solid fa-download" aria-hidden="true"></i><span class="brochure-cta-copy" aria-hidden="true"><span class="brochure-cta-main">Brochure</span><span class="brochure-cta-sub">For Kerala</span></span></a>
+            <a href="profile.html" class="profile-link" title="Trip Preferences" aria-label="Open trip preferences"><i class="fa-regular fa-user" aria-hidden="true"></i></a>
+        </div>
+        <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+    </div>
+</nav>
+
+<header class="page-hero map-hero">
+    <img src="tourists-thekkady-boating.webp" alt="Travellers boating through Kerala's forest landscape">
+    <div class="hero-overlay"></div>
+    <div class="page-hero-content reveal">
+        <span class="hero-subtitle">Journey Planner</span>
+        <h1 class="hero-title">Explore Kerala by Map</h1>
+        <p class="hero-description">Choose where your journey begins and ends, then explore the route, travel time, recommended stops and matching vacation plans.</p>
+    </div>
+</header>
+
+<main>
+    <section class="map-workspace section-padding" aria-labelledby="map-section-title">
+        <div class="container map-container-wide">
+            <div class="map-section-heading reveal">
+                <div>
+                    <span class="subtitle">17 Kerala Destinations</span>
+                    <h2 class="title left-title" id="map-section-title">Build A Journey Across Kerala</h2>
+                </div>
+                <p>Select a marker to learn about a place, or use the planner below to compare a road journey. Distances and times are planning estimates, not live traffic information.</p>
+            </div>
+
+            <div class="kerala-map-shell reveal">
+                <div id="kerala-map" class="kerala-map" role="region" aria-label="Interactive map showing supported Kerala destinations" tabindex="0"></div>
+                <div class="map-loading" id="map-loading" role="status"><span></span><p>Preparing the Kerala map...</p></div>
+                <div class="map-unavailable" id="map-unavailable" hidden>
+                    <i class="fa-regular fa-map" aria-hidden="true"></i>
+                    <h3>The interactive map is temporarily unavailable.</h3>
+                    <p>You can still select a journey below to see approximate distance, driving time, stops and travel advice.</p>
+                </div>
+                <aside class="map-legend" aria-label="Map marker legend">
+                    <h3>Legend</h3>
+                    <ul>
+                        <li><span class="legend-marker legend-hills"><i class="fa-solid fa-mountain-sun" aria-hidden="true"></i></span> Hills</li>
+                        <li><span class="legend-marker legend-water"><i class="fa-solid fa-water" aria-hidden="true"></i></span> Backwaters &amp; islands</li>
+                        <li><span class="legend-marker legend-beach"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i></span> Beaches</li>
+                        <li><span class="legend-marker legend-city"><i class="fa-solid fa-landmark" aria-hidden="true"></i></span> Cities &amp; heritage</li>
+                        <li><span class="legend-marker legend-nature"><i class="fa-solid fa-tree" aria-hidden="true"></i></span> Wildlife &amp; nature</li>
+                    </ul>
+                </aside>
+            </div>
+
+            <form class="route-planner reveal" id="route-planner" novalidate>
+                <div class="route-planner-heading">
+                    <span class="route-planner-icon"><i class="fa-solid fa-route" aria-hidden="true"></i></span>
+                    <div><span>Road Journey</span><h2>Choose Your Route</h2></div>
+                </div>
+                <div class="route-fields">
+                    <label class="route-field" for="route-from">
+                        <span>From</span>
+                        <strong>Choose starting point</strong>
+                        <div class="route-input-wrap"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><input id="route-from" name="from" type="search" list="kerala-destinations" placeholder="Search destinations" autocomplete="off" required></div>
+                    </label>
+                    <button class="route-swap" id="route-swap" type="button" aria-label="Swap starting point and destination" title="Swap route"><i class="fa-solid fa-right-left" aria-hidden="true"></i></button>
+                    <label class="route-field" for="route-to">
+                        <span>To</span>
+                        <strong>Choose destination</strong>
+                        <div class="route-input-wrap"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><input id="route-to" name="to" type="search" list="kerala-destinations" placeholder="Search destinations" autocomplete="off" required></div>
+                    </label>
+                </div>
+                <datalist id="kerala-destinations"></datalist>
+                <div class="route-planner-actions">
+                    <button class="route-show" type="submit"><i class="fa-solid fa-route" aria-hidden="true"></i> Show Route</button>
+                    <button class="route-clear" id="route-clear" type="button"><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Clear Route</button>
+                </div>
+                <p class="route-message" id="route-message" role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+
+    <section class="popular-journeys section-padding bg-cream" id="popular-journeys" aria-labelledby="popular-journeys-title">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Start With A Classic</span>
+                <h2 class="title" id="popular-journeys-title">Popular Kerala Journeys</h2>
+                <div class="divider"></div>
+                <p class="section-intro">Select a well-used Kerala connection to load its route, practical advice and matching vacation plan.</p>
+            </div>
+            <div class="popular-route-grid">
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Hill Road</span><i class="fa-solid fa-mountain-sun" aria-hidden="true"></i></div><h3>Kochi <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Munnar</h3><p>Move from the coastal gateway into tea country through waterfalls and plantation towns.</p><dl><div><dt>Approx. distance</dt><dd>125 km</dd></div><div><dt>Driving time</dt><dd>About 4 hr</dd></div></dl><button type="button" data-route-from="kochi" data-route-to="munnar">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Hill Road</span><i class="fa-solid fa-leaf" aria-hidden="true"></i></div><h3>Munnar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Thekkady</h3><p>A scenic highland transfer through viewpoints, cardamom country and small plantation settlements.</p><dl><div><dt>Approx. distance</dt><dd>83 km</dd></div><div><dt>Driving time</dt><dd>About 3 hr</dd></div></dl><button type="button" data-route-from="munnar" data-route-to="thekkady">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Hill To Water</span><i class="fa-solid fa-water" aria-hidden="true"></i></div><h3>Thekkady <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Alappuzha</h3><p>Descend from spice hills towards Kuttanad's paddy fields, canals and houseboat jetties.</p><dl><div><dt>Approx. distance</dt><dd>138 km</dd></div><div><dt>Driving time</dt><dd>About 4 hr</dd></div></dl><button type="button" data-route-from="thekkady" data-route-to="alappuzha">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Backwater Connection</span><i class="fa-solid fa-sailboat" aria-hidden="true"></i></div><h3>Kochi <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Kumarakom</h3><p>Leave the city for the quieter Vembanad Lake shore and village backwater landscapes.</p><dl><div><dt>Approx. distance</dt><dd>51 km</dd></div><div><dt>Driving time</dt><dd>About 2 hr</dd></div></dl><button type="button" data-route-from="kochi" data-route-to="kumarakom">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Coastal Road</span><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i></div><h3>Munroe Island <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Varkala</h3><p>Pair narrow village canals with a relaxed finish beside Varkala's cliff and beach.</p><dl><div><dt>Approx. distance</dt><dd>42 km</dd></div><div><dt>Driving time</dt><dd>About 1 hr 30 min</dd></div></dl><button type="button" data-route-from="munroe-island" data-route-to="varkala">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Hill Road</span><i class="fa-solid fa-tree" aria-hidden="true"></i></div><h3>Kozhikode <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Wayanad</h3><p>Climb the Thamarassery ghat from the Malabar coast into Wayanad's forested plateau.</p><dl><div><dt>Approx. distance</dt><dd>71 km</dd></div><div><dt>Driving time</dt><dd>About 2 hr 30 min</dd></div></dl><button type="button" data-route-from="kozhikode" data-route-to="wayanad">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Coastal Road</span><i class="fa-solid fa-fort-awesome" aria-hidden="true"></i></div><h3>Kannur <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Bekal</h3><p>Follow the Malabar coast past river towns, beaches and northern Kerala heritage.</p><dl><div><dt>Approx. distance</dt><dd>75 km</dd></div><div><dt>Driving time</dt><dd>About 2 hr 15 min</dd></div></dl><button type="button" data-route-from="kannur" data-route-to="bekal">View Route</button></article>
+                <article class="popular-route-card reveal"><div class="popular-route-top"><span>Island Connection</span><i class="fa-solid fa-water" aria-hidden="true"></i></div><h3>Kochi <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Kadamakkudy</h3><p>A short city-to-island journey for wetlands, village roads and early-morning birdlife.</p><dl><div><dt>Approx. distance</dt><dd>29 km</dd></div><div><dt>Driving time</dt><dd>About 50 min</dd></div></dl><button type="button" data-route-from="kochi" data-route-to="kadamakkudy">View Route</button></article>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-results section-padding" id="journey-results" aria-labelledby="journey-results-title" hidden>
+        <div class="container">
+            <div class="journey-title-row">
+                <div><span class="subtitle">Route Ready</span><h2 class="title left-title" id="journey-results-title">Your Kerala Journey</h2></div>
+                <span class="route-source" id="route-source"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Approximate road route</span>
+            </div>
+            <div class="journey-summary" id="journey-summary">
+                <article><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Starting point</span><strong id="summary-from">-</strong></article>
+                <article><i class="fa-solid fa-flag-checkered" aria-hidden="true"></i><span>Destination</span><strong id="summary-to">-</strong></article>
+                <article><i class="fa-solid fa-road" aria-hidden="true"></i><span>Approx. road distance</span><strong id="summary-distance">-</strong></article>
+                <article><i class="fa-regular fa-clock" aria-hidden="true"></i><span>Estimated driving time</span><strong id="summary-time">-</strong></article>
+                <article><i class="fa-solid fa-car-side" aria-hidden="true"></i><span>Recommended method</span><strong id="summary-method">-</strong></article>
+                <article><i class="fa-solid fa-route" aria-hidden="true"></i><span>Route type</span><strong id="summary-type">-</strong></article>
+            </div>
+            <p class="route-estimate-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Road distances and driving times are approximate. Traffic, weather, roadworks, breaks and seasonal conditions can change the journey.</p>
+
+            <div class="journey-information">
+                <article class="journey-panel journey-overview-panel"><span class="journey-panel-icon"><i class="fa-regular fa-compass" aria-hidden="true"></i></span><div><span class="journey-label">Journey Overview</span><h3 id="journey-heading">A Kerala road journey</h3><p id="journey-overview"></p></div></article>
+                <section class="journey-panel journey-stops-panel" aria-labelledby="journey-stops-title"><div class="journey-panel-heading"><span class="journey-panel-icon"><i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i></span><div><span class="journey-label">Pause Along The Way</span><h3 id="journey-stops-title">Recommended Stops</h3></div></div><div class="journey-stop-grid" id="journey-stops"></div></section>
+                <section class="journey-panel" aria-labelledby="journey-advice-title"><div class="journey-panel-heading"><span class="journey-panel-icon"><i class="fa-solid fa-shield-heart" aria-hidden="true"></i></span><div><span class="journey-label">Travel Well</span><h3 id="journey-advice-title">Travel Advice</h3></div></div><ul class="journey-list" id="journey-advice"></ul></section>
+                <section class="journey-panel" aria-labelledby="journey-transport-title"><div class="journey-panel-heading"><span class="journey-panel-icon"><i class="fa-solid fa-bus-simple" aria-hidden="true"></i></span><div><span class="journey-label">Ways To Travel</span><h3 id="journey-transport-title">Transport Options</h3></div></div><ul class="transport-list" id="journey-transport"></ul></section>
+                <aside class="matching-plan" aria-labelledby="matching-plan-title"><span class="matching-plan-kicker">Matching Vacation Plan</span><h3 id="matching-plan-title">Suggested Kerala itinerary</h3><div class="matching-plan-meta"><span id="matching-plan-duration">-</span><span id="matching-plan-pace">-</span></div><p id="matching-plan-reason"></p><a href="itineraries.html" id="matching-plan-link">View Full Plan <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i></a></aside>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer" aria-labelledby="site-footer-heading">
+    <div class="container site-footer-grid">
+        <section class="site-footer-brand">
+            <h2 id="site-footer-heading" class="site-footer-logo-heading"><a href="index.html" class="site-footer-logo" aria-label="Visit Kerala home"><span aria-hidden="true">&amp;</span> VISIT KERALA</a></h2>
+            <p>A student-created Kerala tourism planning project for educational and exhibition purposes. This is not an official Kerala Tourism or booking website.</p>
+            <a href="Visit-Kerala-Travel-Brochure.pdf" download class="footer-brochure-button" aria-label="Download Visit Kerala travel brochure"><i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Download Travel Brochure</a>
+        </section>
+        <nav class="site-footer-column" aria-labelledby="footer-explore-heading">
+            <h3 id="footer-explore-heading">Explore</h3>
+            <a href="index.html">Home</a>
+            <a href="destinations.html">Destinations</a>
+            <a href="itineraries.html">Plans</a>
+            <a href="map.html">Interactive Map</a>
+            <a href="experiences.html">Experiences</a>
+            <a href="travel-info.html">Travel Info</a>
+            <a href="reviews.html">Reviews</a>
+        </nav>
+        <nav class="site-footer-column" aria-labelledby="footer-tools-heading">
+            <h3 id="footer-tools-heading">Planning Tools</h3>
+            <a href="itineraries.html#trip-finder-title">Find My Perfect Plan</a>
+            <a href="itineraries.html" title="Choose a plan to estimate its personalised group budget">Personalised Budget Estimator</a>
+            <a href="profile.html">Trip Preferences</a>
+            <a href="plan-5-days-students.html">Student Plan</a>
+            <a href="plan-5-days-seniors.html">Senior-Friendly Plan</a>
+        </nav>
+        <nav class="site-footer-column" aria-labelledby="footer-resources-heading">
+            <h3 id="footer-resources-heading">Official Resources</h3>
+            <a href="https://www.keralatourism.org/" target="_blank" rel="noopener">Kerala Tourism <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://www.keralatourism.org/destination/" target="_blank" rel="noopener">Official Destinations <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://www.keralatourism.org/plan-your-itinerary/" target="_blank" rel="noopener">Plan Your Itinerary <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <a href="https://112.gov.in/" target="_blank" rel="noopener">Government Emergency Response <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </nav>
+    </div>
+    <div class="container site-footer-disclaimer" role="note">
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <p>Prices, routes, travel times, public ratings and availability are planning estimates and may change. Verify final details with official sources and service providers.</p>
+    </div>
+    <div class="site-footer-bottom">
+        <div class="container site-footer-bottom-inner">
+            <div class="site-footer-notice">
+                <p>&copy; 2026 Visit Kerala Student Tourism Project</p>
+                <p>Created for educational and exhibition purposes. Not affiliated with or endorsed by Kerala Tourism.</p>
+            </div>
+            <div class="footer-utility-actions">
+                <a href="#top" class="footer-utility-control" aria-label="Back to top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i> Back to top</a>
+                <button type="button" class="footer-utility-control footer-copy-link" data-copy-page-link aria-label="Copy this page link"><i class="fa-regular fa-copy" aria-hidden="true"></i> Copy Page Link</button>
+                <span class="footer-copy-status" data-copy-page-status role="status" aria-live="polite"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="leaflet.js?v=1.9.4"></script>
+<script src="script.js?v=20260804-offbeat1"></script>
+<script src="map.js?v=20260804-offbeat1"></script>
+</body>
+</html>
