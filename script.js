@@ -19,26 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuBtn = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('mobile-active');
-        // Toggle Icon state between bars and X close marker
+    const setMobileMenuState = (isOpen) => {
+        navLinks.classList.toggle('mobile-active', isOpen);
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        mobileMenuBtn.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
         const icon = mobileMenuBtn.querySelector('i');
-        if(icon.classList.contains('fa-bars')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
-        } else {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+        icon.classList.toggle('fa-bars', !isOpen);
+        icon.classList.toggle('fa-xmark', isOpen);
+    };
+
+    mobileMenuBtn.addEventListener('click', () => {
+        setMobileMenuState(!navLinks.classList.contains('mobile-active'));
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && navLinks.classList.contains('mobile-active')) {
+            setMobileMenuState(false);
+            mobileMenuBtn.focus();
         }
     });
 
     // Close mobile drawer when clicking structural menu landing points
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-            navLinks.classList.remove('mobile-active');
-            const icon = mobileMenuBtn.querySelector('i');
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+            setMobileMenuState(false);
         });
     });
 
@@ -91,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const runCounters = () => {
         counters.forEach(counter => {
+            const suffix = counter.getAttribute('data-suffix') || '';
             counter.innerText = '0';
             const target = +counter.getAttribute('data-target');
             const speed = target / 60; // Adjust value divisor to scale execution pace
@@ -101,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     counter.innerText = Math.ceil(currentVal + speed);
                     setTimeout(updateCounter, 25);
                 } else {
-                    counter.innerText = target;
+                    counter.innerText = `${target}${suffix}`;
                 }
             };
             updateCounter();
@@ -120,6 +125,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(statsSection) {
         statsObserver.observe(statsSection);
+    }
+
+    // Keep the educational-project identity visible without changing individual page layouts.
+    if (navbar && !document.querySelector('.project-disclaimer, .site-project-note')) {
+        const projectNote = document.createElement('div');
+        projectNote.className = 'site-project-note';
+        projectNote.innerHTML = '<i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>A student-created tourism exhibition project inspired by Kerala Tourism. This is not an official Kerala Tourism website.</span>';
+        navbar.insertAdjacentElement('afterend', projectNote);
     }
 
     // Keep long vacation plans easy to navigate and orient within.
@@ -479,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 meals: 'Daily breakfast and a Malabar food experience',
                 summary: 'End with north Kerala\'s less-crowded island backwaters: cruise Valiyaparamba, taste Malabar cooking and keep the final evening for Bekal Fort.',
                 schedule: [['Day 9, 7:30 AM', 'Leave Wayanad after breakfast for the north coast.'], ['Day 9, 2 PM', 'Reach the Valiyaparamba area, check in and have lunch.'], ['Day 9, 4 PM', 'Take a short cruise or canoe ride through the islands and village waterways.'], ['Day 10, 8 AM', 'Slow island morning, then continue to Bekal Fort and the coast.'], ['Day 10, 1 PM', 'Lunch followed by the airport or railway transfer with a generous buffer.']],
-                note: 'Organised cruises commonly use Kottappuram as an access point. Bekal pairs best with Kannur or Mangaluru connections, so confirm the departure before booking.'
+                note: 'Organised cruises commonly use Kottappuram as an access point. Bekal pairs well with Kannur or Mangaluru connections, so confirm the departure before booking.'
             }
         ]
     };
@@ -692,9 +705,19 @@ document.addEventListener('DOMContentLoaded', () => {
         reviewLink.href = 'reviews.html';
         reviewLink.textContent = 'Traveller Reviews';
         footerColumn.append(reviewLink);
+
+        if (!footerColumn.querySelector('a[href="credits.html"]')) {
+            const creditsLink = document.createElement('a');
+            creditsLink.href = 'credits.html';
+            creditsLink.textContent = 'Image Credits';
+            footerColumn.append(creditsLink);
+        }
     });
 
     document.querySelectorAll('.footer-bottom').forEach(footerBottom => {
+        const copyright = footerBottom.querySelector('p');
+        if (copyright) copyright.textContent = '© 2026 Visit Kerala student exhibition project.';
+
         if (footerBottom.querySelector('.footer-contact')) return;
 
         const contact = document.createElement('a');
@@ -995,7 +1018,7 @@ document.addEventListener('DOMContentLoaded', () => {
             suggestion: '5-day trip',
             questions: ['What is included in the 5-day plan?', 'Is five days enough for Kerala?', 'What is the best five-day Kerala route?', 'Which places are covered in five days?', 'Can I see Munnar and backwaters in five days?', 'Plan a five-day Kerala vacation.'],
             terms: ['5 day', 'five day', 'five days', 'munnar and backwaters'],
-            text: "The 5-day route is the best compact classic: Kochi, Munnar, Thekkady, and Alappuzha. It gives you heritage, tea hills, spice country, and a houseboat without adding the longer north Kerala transfers.",
+            text: "The 5-day route is a compact classic: Kochi, Munnar, Thekkady, and Alappuzha. It gives you heritage, tea hills, spice country, and a houseboat without adding the longer north Kerala transfers.",
             link: ['plan-5-days.html', 'Open the 5-day plan'],
             related: ['budget-5', 'munnar', 'thekkady', 'alappuzha']
         },
@@ -1292,7 +1315,7 @@ document.addEventListener('DOMContentLoaded', () => {
             suggestion: 'Valiyaparamba',
             questions: ['What is Valiyaparamba?', 'Where are the north Kerala islands?', 'Is Valiyaparamba worth visiting?', 'Can I combine Bekal and Valiyaparamba?', 'How do I reach Valiyaparamba?', 'What can I do near Bekal?'],
             terms: ['valiyaparamba', 'bekal', 'north kerala islands', 'kasaragod backwaters'],
-            text: "Valiyaparamba is a quieter north Kerala island-backwater area that pairs well with Bekal Fort and Malabar food. It is best for the 10-day route because reaching Kasaragod from the south takes time.",
+            text: "Valiyaparamba is a quieter north Kerala island-backwater area that pairs well with Bekal Fort and Malabar food. It suits the 10-day route because reaching Kasaragod from the south takes time.",
             link: ['destination-islands.html', 'Explore the north Kerala islands'],
             related: ['plan-10', 'offbeat', 'transport']
         },

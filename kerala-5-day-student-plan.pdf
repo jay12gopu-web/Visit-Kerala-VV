@@ -1,137 +1,395 @@
-%PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
-1 0 obj
-<<
-/F1 2 0 R /F2 3 0 R /F3 4 0 R
->>
-endobj
-2 0 obj
-<<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
->>
-endobj
-3 0 obj
-<<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
->>
-endobj
-4 0 obj
-<<
-/BaseFont /Times-Bold /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
->>
-endobj
-5 0 obj
-<<
-/Contents 12 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
+from pathlib import Path
+import shutil
 
->> 
-  /Type /Page
->>
-endobj
-6 0 obj
-<<
-/Contents 13 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import mm
+from reportlab.platypus import (
+    HRFlowable,
+    PageBreak,
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
->> 
-  /Type /Page
->>
-endobj
-7 0 obj
-<<
-/Contents 14 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
 
->> 
-  /Type /Page
->>
-endobj
-8 0 obj
-<<
-/Contents 15 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 11 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_DIR = ROOT / "output" / "pdf"
+BROCHURE_DIR = ROOT / "brochures"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+BROCHURE_DIR.mkdir(parents=True, exist_ok=True)
 
->> 
-  /Type /Page
->>
-endobj
-9 0 obj
-<<
-/PageMode /UseNone /Pages 11 0 R /Type /Catalog
->>
-endobj
-10 0 obj
-<<
-/Author (Visit Kerala) /CreationDate (D:20260727200713+05'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260727200713+05'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (5-Day Kerala With Friends) /Trapped /False
->>
-endobj
-11 0 obj
-<<
-/Count 4 /Kids [ 5 0 R 6 0 R 7 0 R 8 0 R ] /Type /Pages
->>
-endobj
-12 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1610
->>
-stream
-GatU3>?BQ=&:Vs/Qq+T?W7K4V+&`H8DHY\F3W!W/,r%B&l3f'<lZXU]&d.*5$4!(lUR?%4^);nZGkaqfs*,"B-%sTW'I\TQ!E9U2i<@HCafc#u6?t<dU6UfS+&Zl$i9G]QK;?Fqgh.`HOYlP0=G%<>0Y+ZW_=`He:MIXr#jDL2+3Z/aQ]o_!:UIO2$2$C'\3W3<K,H"5-e/pJ2&ooR9k*Z32J$l@iqaM_U4t(O@^/Ja1s2IDRPM"rYVimi=rRMj7D;=928i3lg66)IRgP3%&B1oR.e4C/G7]4LC7b=@%m2R)n'O;_T,=M5gm80Bee/\7&9p=Q!8BK-$^+p<.CVN,]YHlp)hT-Vm6^%FU,<Bf3\6O#(7uqFe%Z8.oj"ZPo6C'R/]8.R01>R+AV<B#_O0KS6AV+a.I$:E*1#H8E!Lo.@$D8b/(L%gMFiArrK\:RMnihn.QVO6>IQeg0lUZse1.=^&aFWBDMJN<bt`1069+diEA9\M_thjWRia?!5+2A:pZ\-,:Uoci*.t#V&l!M83GK?@@H##$"iFWbE)*@oJ`snjl"Tbqhb4o!&cA-L.l]%XP:+n2AUND^/=`De`hI/LV:u(")C$Qul/RhN#*,r(h2h_?<Tk-`JWLn`Dah<2Yo'dX.EsUFe)YdR6>[p&M^GXN7opV8/D=p/s&K`e7e-Em9;\duCOM&4C.iNWE*d+:E8)X2A#h<J4eu6oY'Q:3i@;16UW6ZJ9rXs4I?otm[$@XE&ZJt9@Rru9;N(_m1VkmTGaOkYf0!FX!D@`T6Nb(b?;oqt>ZSX.5_RK&!VK)-jE5uh'SI"@Gpf^s:MXP7#$1-=l-7a0r;-A4e7;%o,'=S5!_pC'<n<JBDt)&,KEUmcciSOR;5/YmrNS:GAgd2Z4UD2,cl2km-aU<X+3Z7,85u\maoC"W0/ofloC-U(UlRtLK-0XFX=Vrlp$rI)hnPHr1`ulPrnO:EFkAUppM^T1p;,r_]Fn-PMfJ@C1\3R)h+]Rl*_mLW^+31.!eFNoefYU6j(_lgl?-48UIO[%m-T+oAacVjT%n*2.8rXWJ<#<Z[9a,c*VLC8!]R4R6@6&e+>b"&E`=UDG[!kZQP$*Ic&qfAX,->Ec#G*RG61;T^V*H[UoAdrB))LJL`E@'5;$1S`4R:4_E#h,R)/U;m.-DshZ7,,+2Hk'4@10:=tsp>1ZciiGM':;]V^&-eJ-g$gN]Y4qfo?;;W[C%.MY-!/Fa,Zet:i,ZJ*UIp-u9[Z0_g8d.J`CCT(=21"4mU1/J`\NRpa!6BpE!M]u;9QDUhm!nXKO1^VZCPZO?KFOqod"V.VYVK/0TZG>V\Y"uPdAqTph.]R7)MQJ=g@Co.<Tar3th'u_KZtJ`q>iV>Z\MI5k(AZD:61]G5/-6fAaZEscZ_(ao+a-_T%0C^"l`0hIHZCbOD-[KCgJQH>kl$Zf*8TDcH-e\.$2f,J[::kTbeAM4WPmhDlom:,]$)lXcdRV_H8,++VkId\&m.7sk-fNM2i[-J<>6<%1$>#5F&t2$!Y(<cC,"?PBnZdmR#\7/L1OlDJ0G`BN7^h9ZW!Z>M7VKS8[2S<8Q;TV5,:*]/"G*%I,!n)XcN^bmqE8?ninBs4I6~>endstream
-endobj
-13 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1749
->>
-stream
-Gatm;?!#f>&:N_CbTfi=C<;c+*[-2iLA%.Q2E?$s[W^9=CH8]EQ6(L&B4S49EgCgj=ZBen+*0qnmu/M%!WI->5@4G]c/?&=%U?ec%Qn24bc]n&m-)J%$UcC3#)n?0""_LpT#G(R7l=%:"2RA:,p5"c6m?+H1DZlDLqmbm^H"WUpktn16jT<0LldGo!o*P/NT>a.$V5Qe_Baig$BDl+hH\@ae,/I[X4(E`p)Ra`BGsMV+X?V0(.fc3YV=3$0`hYP#U^Wo14b;'`@0G,O`/QA^C;U\olBa<0!6kbs*9&LKhS6eO9h9JLoF'H&]+,FN5Xq+,acOFA?Z+Q781co;[#*M/..Os_Dk"?aAREXmVi$c&@8b<SB!jNOH=.>Vqa@`j17S/%N9,sleJ$rD&fJmb^<aZV5h>!cBdi)f(ug,SS%B:eFV+k+RcD.R8u?(ifjLDT'NgrP@[PK_jJC\Ek;JsLrnl,W0qXM13f;,+d4+,;/7GV\6lhg,.)pI+O%cY3^,#,UIOB/Qh608#q."<`73I!^rI5YDWHmTOU2?Sb)d+/@2/BUkbn^r6%jnA&s%B:hJ4Oh6[Jl[V3S/(TM`6PfSaXcP)rRu8KlHS4ku^#$3dOj:2q,;n@&A`Zfs\Rc[CW35*(Ksh7/V6(h@<XGMm+G-4Gk'-_o?3r.%"9ET!bQoI%9sl.m/cNWF8a`14eWSpQp04H.V;3JIWYOneDO/e`V1Pd$f3i:rMXQR0<1.bA)sIYA/>$L\BTI[Eok*M6QbJ6Qcu<=:(RCGC:lg'9;Ig82*d!,#<f2T@eFA)da+Gk3:>YD-'Q2_;?gSQb4j=C[*<\M]a*pSD2[#1QneRm7tjgqf4j>\RqH\_OfQ0C@2hH\KhV(XjJf2*(_uE9"%NjHqCcl]Z?^Ff26[Yl?9P0@MrC?XUqc`4u'hr:=k4q]]PJ($o9H<PZhE%Eo7YdFGY143=+o4&'P`8NP4HYEpQt/X3Y!?5^qlW`iMkD@*2k,Rh.?d,qnlF(h+Yg-H%IG&B*56#1jBD4Q"*Mq>.=3NB*l9k8=B<NdQns(GT6/(""r=ta4$.o53CYSurU.ZY(,dlii_"[g]T%!%8ONA9//m(9)KR**?KDH9kg*TX'A]@-@?3fNGm=kjLL49[7ZqeejP2O1;5U?'/Cj!K$1.2_Q%nku>g2^\0k.go>$>#fcnd7gY(VQ1`gR)eH#*oY##WRik`]Au6pNqR*F8Ie8[REFuGr?Q"$[*"`IZdu.'9nsHCX]3bks"'G=bQBYI/DR^(3NV(K1Z[_iepXYBd`Bc*[@aZ-Fr/_Oc,ad"f!Vr5&UVuZk-cd;GslLLiKf#e+6u&:lW44+=(@eG'u)L`%)$\2HF#tWak%H?]6Yj.IppucNKpc?SJo]BKHB3S&*7E\V;b5*Sh\G<A1I>1H]'p/H1ZnVhpodr*e#&m8>-u6rSc\CS'Ui)pr_Z"d5V%JUKt.OY!4&%%;\&^R,)c5q]5^Nj6^56e>7C]85m)@GkUWQ^ncYVjCl#S.#qDunn`!4Ma?`UQuiL9c,%uXae53EE/asoOP)O$hlnhpGIO\Lr7lDa0V3I8kGBb)V`jh*GAN;@jOE>jaf!H<S^G>C0V8+MATtm/qg\PArq*!te8X->$#6&gamFZ/BQ\2.25YEq^<G&?DR^;Sg=#!.c96^Wd?Vt6mRL5CI$LCbVq:#;cY'$h?f`/QeTaPNWR/`/bDG;Yr"-5@Pbd6'PRdLeeI2=tE^Xp)A%-?J?R4Rn?f?t/P5~>endstream
-endobj
-14 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1511
->>
-stream
-Gau`SgJZcs&:O:SoHTiu6$(N!4F2W':;@EF=_]%d[N(42-*JSLA\W\@7TU63CrKDj"\*RtdrYA-[t]Kq+6rjN2ZUUJE-=Nu1'j43"VD;P_'g<$4WlrKOr5C,gE.QPnYlg;s#*DfZh>8F^/,r3,YZ;[\06Eh^48>#jgtO3`=K+p&0**@&=fsC!lo$BNMI=A@%_4!\C(q+i8fshC`L=Td<'Ujr!gMi#iF<P6n'Gdq@t\1,R)&=nQ?7<5Zo)_StlT9XG]F3Th+X"ph,QfGN80;>YN25an`"KWJ0mh6L"nT9<FV4kp8+4\h4h^aH(l]80J8&]qI=-#"85Y$fk/Uhe;qfgi*+f&.i,m:4j?"@M3NU9qCm^EjpkR'"3(/+4&,/8@&r''XHgUR4$B#b&!Cl`<ICC^P\hG$%0hBAWgt>^<:T01QT\g^b#qMk4?)28FP2ZGTMs^?u5SqIGS3,"Z=a]=1,Lei']=8T[p3?K'MRD#df0?4u]PL*Gq'uXBG-IQM+ZbNGf[pRGN<#7rWf4S4pqdb<>4Td5gTh>;YE,?q;scXg"G7M[GsVite+5LOHYS+=X#:-"R,GThI@!A1<bD)"K4]OFuCd`JC3m5eo+f:cPY)j3gTS"^D'AL'ZQ=?9;-JQga9bo!'/d>p@l,gc/[q757/hj>HL$$.Ol")Zsm-3"g+!du2V/&2%jtLX4.(;%0c>eZV$`IQ?UW\DND(<$6rP>jU%_Ff"L-W.'6Mi12Fj,Yf-ZC-=%jH/+F`ZgVm?*-B@(-G>R3Mk=Ti2B'kY-?/d'Hp2kI#)/nhfYi8j#+P//cu:co^$@)%1\e=M]ii"%ZhCoHD2r[uces;ihtmFDgrD1(kGn3oD:UFGZnSC!p-lFSACcdoR[#oEHaE_.YlAffDr"&5H_n#RZr\bVj?Zc;=\J/"Su")qdQX=gBP]UuG^ho=2V5;=l2--8o;DbdD'f>#.?jm_2`e17;D][c"G1;]%<sH!^Y,O$?jSqjrO]TLa#B4"P%2R`6nKJkZ)P,b*DS3tMk,]T:l;V#&,GYR0EgbBf;%;8Fq@bc<,4UR36KcM7O?':>1nfUX#m!aTR0256*n?4q)OqJ'(:.5VG[=Ra[ZILSqPX&aHkX)B\@guAYN74)g5r=0!,KI(1.sY8N,6"?2K4/O1rYMf@CG@1(Cnfi9-/,1$oG%d<</!G87g:q,-+I(VGTIY(&%dqIh6oRJ*0#?g%<2cr`b#p*RAqYL7[O2g,(*VX+5\V/$@>D`3T]C($N60iS8RhUkRdD41@!]g^6c_kVFXH4S@c2hn0o:W]ce1;1HG4kC./ROZ=[_);gPk8;fN6sMNd*kE'kql`hR"ItsZ%CfUb]*3,51J15_JS&2gn9d'n36-6A#<3%%+QL->Rs!6&J,mmKX3iA&La%4hcVH'&bd2DRPY%0A=.uA4[KUKA8!pKSoNMauG`>>Ua3(Eq6q'P$[k#(6Q)rU9rH#W#/X#5Dg:$T1:nou,3LLTLVY4jCj\]4$nIO4V)#OVmA:lZ~>endstream
-endobj
-15 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1809
->>
-stream
-Gb"/'>BeOU&:X)OR)]8ff9.FaIS@5EA6[L1GaH;h?5,nd9md8][$4q4,M@&VkU#T;JJXd(VQqi3BYGA/-PN`S6d4FA"ZQtLO4OL?KjXq7=U]mT(^3F%O"?b]SGHV*8,n*Nq_mtM.$d@@:)5aqW6IH_5.@K2?#Y27(#3Ct-s4,E_F=!IUCDkYKGY!8U+HL3-`o7rBJc'-+KjgN!eM,Hru"VQ!F1S$L6odo&:B)fV4M:E*p!gtEiI)=!R"oc9fjI)T#MAu:3nTfS&j4l$6PcI5I;j.IN6"Of/Ma;jD<P*'[3mD6AbtEE$6W^Rre3iB0)e'8,r@G!b]`O]_<h*l&ir$:GDDcj0gW1X"f*62Z_MCNTJ*,_F'RJRR@]sr3WKe.]Zr_jI]CRSNrKB+>_(TM`?Z,!``PCELF\7R[%lh/GM$I(3,I'=;Q[_=ia4#3+WRT$rpG6]l!N&*S5=[jE:dbB"cU\0P7oT?>H\+3YnWbMm9-Hb&+R^I>2Oq\*`s46QPD8'>:902dGWt0ktOlOlOp*cd##]]RjiOr%QsCIMglaI<:I'^9s%8UnS7`DrFh$mJqAd2Y@LPFb5(E,)*as@24R]gpsFqSF!b%f+=9a/A]^X^Meo]ZmfBk*sOHKD^&:2(1Cm.b:Ffm%g2+*l"$8@\'^pUZ7pRYk3E4Ni'Vf-IpZIdj/^:sgERCQbrId(i:Z2N1)Wm5iFY&0+$Bs)R;3Cd/isp>q_uCmn?dI&)GV=a/-.qhF,NR#aYV=4#tGVb%P%1#1g+>kC!J!KR>0;O/Ap!VIoZ$OM[p.WT%m_@XTm9]4mulc]"rg[r7]"s%;C5a3Zf#fHBo@]$$cP_,RZJb,1"a/"D2eUbi>^bEE9q^Ul&KESNr@uf>c+r<6:prYhE[\\D+NNeJ!cfJF`m>n%?a-2'/UY+totZ\N;4Jk)ML'JOB1iNk#DSm^e3mYu5s:h9u)W<^h"q.*+3#iWP<2H#EuR-sIL&0['&&:7UFOg648N*RJTN<2*rn>o<S737\RRJ`b3s<s-/IDrO$h[35lS?E"&6>IP(J-)On"?<B[BNO#6a0+0d1IcbVcB?NaTo_<36)=l:D[45XNL$BiPrkdPgW0c41.o8,1T`pXZE%%))cJbq,F6U-]l)'b<RFtWEA,!7a)qZ,#^d@7l%2*)2"0f==&io@P?u+6MLjfT;RLV[^-8m\kf@ZN[*RQR>qn'kFs4q0OKl[rX=umnq%hE(&!=($Z=4?F/oQ'S_Np>[5ZUl8;[s\!'?P)iR&#8n9-l:4<#P:F:p.s0js5kW!TO>2:+-/o\-<G=6duQ.iYdmCQpHZYI\;RBn,cp<7&sna7QGHOLM:4M&X(E6!`KIb3'ec?IV^[tAFdC-4jQ=9)M^H\/iVS^[0[UNkD=*<+/l;d/>=Z9Igg#j%-q@"*CWkHtM]0[g<LffkNO+X(IHbMp(M\f?5>ANo'=hH$?R,@S[*"G?fjU(\LifcNl5lpnFZ1Qo.sVYn64u>_^o<K*Zm.Fc=*i:8&m@CG07PL:s.rO3caS_ncu0XkV\'o%En^W@Ba!iKmoto^RQi26n.A-L_:gK'IM:;%=RLn;j,&=gn^6['Rh;/s?!Uk:2IWB>gR0CqDONLqBP3j[nRdZ&(^6<k^%(#f-SdL#H%s^K2XfT;4lCC@d_";KG=te@lQRI<l3+i)#jlJQ0L"eh\u69r.u'/n=+`Jb.Sc6h[mGoq4@u>4YQ2Q]0@r"6EZZs\nfDYQ+=Q<QdOtXGpdKbsgP%+f+sAR9aG3?HRfA3iH2(+7c4SG.Y+`!7L8MXcP4V4-S0d!A-77^85:ma2CB~>endstream
-endobj
-xref
-0 16
-0000000000 65535 f 
-0000000061 00000 n 
-0000000112 00000 n 
-0000000219 00000 n 
-0000000331 00000 n 
-0000000439 00000 n 
-0000000644 00000 n 
-0000000849 00000 n 
-0000001054 00000 n 
-0000001259 00000 n 
-0000001328 00000 n 
-0000001620 00000 n 
-0000001698 00000 n 
-0000003400 00000 n 
-0000005241 00000 n 
-0000006844 00000 n 
-trailer
-<<
-/ID 
-[<4aca360f524325358fdee7fe32304428><4aca360f524325358fdee7fe32304428>]
-% ReportLab generated PDF document -- digest (opensource)
+GREEN = colors.HexColor("#0A3222")
+DEEP_GREEN = colors.HexColor("#062217")
+GOLD = colors.HexColor("#C5A059")
+CREAM = colors.HexColor("#FAF7F2")
+TERRACOTTA = colors.HexColor("#A64B34")
+INK = colors.HexColor("#243129")
+MUTED = colors.HexColor("#68736D")
+WHITE = colors.white
 
-/Info 10 0 R
-/Root 9 0 R
-/Size 16
->>
-startxref
-8745
-%%EOF
+styles = getSampleStyleSheet()
+styles.add(ParagraphStyle(
+    name="CoverKicker",
+    parent=styles["Normal"],
+    fontName="Helvetica-Bold",
+    fontSize=8,
+    leading=11,
+    textColor=GOLD,
+    alignment=TA_CENTER,
+    spaceAfter=8,
+))
+styles.add(ParagraphStyle(
+    name="CoverTitle",
+    parent=styles["Title"],
+    fontName="Times-Bold",
+    fontSize=31,
+    leading=34,
+    textColor=WHITE,
+    alignment=TA_CENTER,
+    spaceAfter=12,
+))
+styles.add(ParagraphStyle(
+    name="CoverCopy",
+    parent=styles["Normal"],
+    fontName="Helvetica",
+    fontSize=10,
+    leading=16,
+    textColor=colors.HexColor("#D9E2DD"),
+    alignment=TA_CENTER,
+))
+styles.add(ParagraphStyle(
+    name="SectionKicker",
+    parent=styles["Normal"],
+    fontName="Helvetica-Bold",
+    fontSize=7.5,
+    leading=10,
+    textColor=TERRACOTTA,
+    spaceAfter=5,
+))
+styles.add(ParagraphStyle(
+    name="SectionTitle",
+    parent=styles["Heading1"],
+    fontName="Times-Bold",
+    fontSize=23,
+    leading=27,
+    textColor=GREEN,
+    spaceAfter=12,
+))
+styles.add(ParagraphStyle(
+    name="DayTitle",
+    parent=styles["Heading2"],
+    fontName="Times-Bold",
+    fontSize=13,
+    leading=16,
+    textColor=GREEN,
+    spaceAfter=3,
+))
+styles.add(ParagraphStyle(
+    name="BodySmall",
+    parent=styles["BodyText"],
+    fontName="Helvetica",
+    fontSize=8.4,
+    leading=12.5,
+    textColor=INK,
+))
+styles.add(ParagraphStyle(
+    name="MutedSmall",
+    parent=styles["BodyText"],
+    fontName="Helvetica",
+    fontSize=7.5,
+    leading=11,
+    textColor=MUTED,
+))
+styles.add(ParagraphStyle(
+    name="CardLabel",
+    parent=styles["Normal"],
+    fontName="Helvetica-Bold",
+    fontSize=7,
+    leading=9,
+    textColor=GOLD,
+))
+styles.add(ParagraphStyle(
+    name="CardValue",
+    parent=styles["Normal"],
+    fontName="Times-Bold",
+    fontSize=12,
+    leading=14,
+    textColor=WHITE,
+))
+styles.add(ParagraphStyle(
+    name="FooterNote",
+    parent=styles["Normal"],
+    fontName="Helvetica",
+    fontSize=7.2,
+    leading=10,
+    textColor=MUTED,
+))
+
+
+def draw_page(canvas, doc):
+    canvas.saveState()
+    width, height = A4
+    if doc.page > 1:
+        canvas.setFillColor(DEEP_GREEN)
+        canvas.rect(0, height - 14 * mm, width, 14 * mm, stroke=0, fill=1)
+        canvas.setFillColor(WHITE)
+        canvas.setFont("Times-Bold", 11)
+        canvas.drawString(18 * mm, height - 9 * mm, "VISIT KERALA")
+        canvas.setFillColor(GOLD)
+        canvas.setFont("Helvetica-Bold", 7)
+        canvas.drawRightString(width - 18 * mm, height - 9 * mm, doc.title.upper())
+    canvas.setStrokeColor(colors.HexColor("#D8DFDB"))
+    canvas.line(18 * mm, 15 * mm, width - 18 * mm, 15 * mm)
+    canvas.setFillColor(MUTED)
+    canvas.setFont("Helvetica", 6.8)
+    canvas.drawString(18 * mm, 9 * mm, "Student project, not an official tourism website. Confirm current rates and access.")
+    canvas.drawRightString(width - 18 * mm, 9 * mm, f"{doc.page:02d}")
+    canvas.restoreState()
+
+
+def fact_table(items):
+    data = [[
+        Paragraph(label.upper(), styles["CardLabel"]),
+        Paragraph(value, styles["CardValue"]),
+    ] for label, value in items]
+    table = Table(data, colWidths=[44 * mm, 44 * mm], rowHeights=[15 * mm] * len(data))
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, -1), GREEN),
+        ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#456554")),
+        ("INNERGRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#456554")),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 6),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    return table
+
+
+def day_rows(days):
+    rows = []
+    for index, (title, description, highlights) in enumerate(days, start=1):
+        day_number = Paragraph(f"<b>DAY {index:02d}</b>", styles["CardLabel"])
+        copy = Paragraph(
+            f"<b>{title}</b><br/>{description}<br/><font color='#68736D'>{'  |  '.join(highlights)}</font>",
+            styles["BodySmall"],
+        )
+        rows.append([day_number, copy])
+    table = Table(rows, colWidths=[24 * mm, 140 * mm], repeatRows=0)
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, -1), GREEN),
+        ("TEXTCOLOR", (0, 0), (0, -1), GOLD),
+        ("BOX", (0, 0), (-1, -1), 0.55, colors.HexColor("#D6DEDA")),
+        ("INNERGRID", (0, 0), (-1, -1), 0.45, colors.HexColor("#D6DEDA")),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 9),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
+    ]))
+    return table
+
+
+def planning_table(title, rows):
+    data = [[
+        Paragraph("<b>OPTION</b>", styles["SectionKicker"]),
+        Paragraph("<b>PLANNING RANGE</b>", styles["SectionKicker"]),
+        Paragraph("<b>WHAT IT MEANS</b>", styles["SectionKicker"]),
+    ]]
+    for label, amount, description in rows:
+        data.append([
+            Paragraph(f"<b>{label}</b>", styles["BodySmall"]),
+            Paragraph(f"<b>{amount}</b>", styles["BodySmall"]),
+            Paragraph(description, styles["MutedSmall"]),
+        ])
+    table = Table(data, colWidths=[42 * mm, 42 * mm, 80 * mm], repeatRows=1)
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), CREAM),
+        ("BOX", (0, 0), (-1, -1), 0.55, colors.HexColor("#D6DEDA")),
+        ("INNERGRID", (0, 0), (-1, -1), 0.45, colors.HexColor("#D6DEDA")),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LEFTPADDING", (0, 0), (-1, -1), 8),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+    ]))
+    return table
+
+
+def build_brochure(filename, data):
+    output_path = OUTPUT_DIR / filename
+    doc = SimpleDocTemplate(
+        str(output_path),
+        pagesize=A4,
+        rightMargin=18 * mm,
+        leftMargin=18 * mm,
+        topMargin=22 * mm,
+        bottomMargin=21 * mm,
+        title=data["title"],
+        author="Visit Kerala",
+    )
+    story = []
+
+    cover_spacer = Table([[""]], colWidths=[164 * mm], rowHeights=[18 * mm])
+    cover_spacer.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), DEEP_GREEN)]))
+    story.extend([
+        cover_spacer,
+        Table(
+            [[
+                Paragraph(data["kicker"].upper(), styles["CoverKicker"]),
+            ], [
+                Paragraph(data["title"], styles["CoverTitle"]),
+            ], [
+                Paragraph(data["subtitle"], styles["CoverCopy"]),
+            ]],
+            colWidths=[164 * mm],
+            rowHeights=[12 * mm, 37 * mm, 34 * mm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), DEEP_GREEN),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 18),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 18),
+            ]),
+        ),
+        Spacer(1, 10 * mm),
+        fact_table(data["facts"]),
+        Spacer(1, 9 * mm),
+        Paragraph("ROUTE AT A GLANCE", styles["SectionKicker"]),
+        Paragraph(data["route"], styles["SectionTitle"]),
+        Paragraph(data["overview"], styles["BodySmall"]),
+        Spacer(1, 7 * mm),
+        HRFlowable(width="100%", thickness=1, color=GOLD),
+        Spacer(1, 5 * mm),
+        Paragraph(data["cover_note"], styles["FooterNote"]),
+        PageBreak(),
+        Paragraph("DAY BY DAY", styles["SectionKicker"]),
+        Paragraph("Five days, clearly paced.", styles["SectionTitle"]),
+        day_rows(data["days"]),
+        Spacer(1, 7 * mm),
+        Paragraph(data["day_note"], styles["FooterNote"]),
+        PageBreak(),
+        Paragraph("ROUTE PLANNING", styles["SectionKicker"]),
+        Paragraph("Who it suits + time on the road.", styles["SectionTitle"]),
+        fact_table([("Perfect for", data["audience"]), ("Season guide", "Oct-Mar / Jun-Sep / Apr-May")]),
+        Spacer(1, 8 * mm),
+        planning_table("Travel", data["travel"]),
+        Spacer(1, 8 * mm),
+        Paragraph("Travel times are approximate. Traffic, weather, road conditions and stops may change journey times. Coastal and hill conditions can differ, and weather is not guaranteed.", styles["FooterNote"]),
+        PageBreak(),
+        Paragraph("BUDGET + STAYS", styles["SectionKicker"]),
+        Paragraph("Plan the practical details.", styles["SectionTitle"]),
+        planning_table("Budget", data["budget"]),
+        Spacer(1, 8 * mm),
+        Paragraph("POSSIBLE STAYS", styles["SectionKicker"]),
+        planning_table("Stays", data["stays"]),
+        Spacer(1, 8 * mm),
+        Table(
+            [[Paragraph(f"<b>BEFORE BOOKING</b><br/>{data['booking_note']}", styles["BodySmall"])]],
+            colWidths=[164 * mm],
+            style=TableStyle([
+                ("BACKGROUND", (0, 0), (-1, -1), CREAM),
+                ("BOX", (0, 0), (-1, -1), 0.8, GOLD),
+                ("LEFTPADDING", (0, 0), (-1, -1), 12),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 12),
+                ("TOPPADDING", (0, 0), (-1, -1), 11),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 11),
+            ]),
+        ),
+    ])
+
+    doc.build(story, onFirstPage=draw_page, onLaterPages=draw_page)
+    shutil.copy2(output_path, BROCHURE_DIR / filename)
+    return output_path
+
+
+student = {
+    "kicker": "Adult College Group Escape",
+    "title": "5-Day Kerala With Friends",
+    "subtitle": "Kochi culture, Munnar tea country and Alappuzha backwaters with a student-friendly budget and social stays.",
+    "facts": [
+        ("Duration", "5 days"),
+        ("Pace", "Active"),
+        ("Budget", "From INR 14k"),
+        ("Best group", "4-8 friends"),
+    ],
+    "route": "Kochi - Munnar - Alappuzha - Kochi",
+    "overview": "A compact three-base route for adult college friends. Shared transport and dorm or shared-room stays keep the cost lower, while the schedule protects the strongest experiences.",
+    "cover_note": "Designed for adult college travellers aged 18 or above. School groups should use supervised hotels, guest houses or school-approved accommodation instead of adult hostels.",
+    "days": [
+        ("Kochi Culture + Food", "Drop the bags, use ferry or shared transport for Fort Kochi, then mix heritage, waterfront views, cafes and an optional cultural show.", ["Fort Kochi", "Street food", "Kathakali option"]),
+        ("Road Trip To Munnar", "Take an early shared vehicle into the hills with one or two scenic stops, then settle into a social stay.", ["Waterfall stop", "Tea views", "Hostel evening"]),
+        ("Munnar Viewpoints + Tea", "Choose one compact circuit with tea gardens, a museum or plantation visit, viewpoints and a short guided walk.", ["Tea country", "Viewpoints", "Guided walk"]),
+        ("Backwaters + Beach", "Travel to Alappuzha for a shorter shared boat trip, then keep the evening for the beach and a group dinner.", ["Shared cruise", "Village canals", "Beach sunset"]),
+        ("Kochi Return", "Use the morning near the beach or canals, then make the group connection back to Kochi with a proper departure buffer.", ["Local morning", "Budget transfer", "Departure"]),
+    ],
+    "day_note": "Use recognised guides, confirm boat safety equipment and keep one group meeting point. Weather and local operating conditions can change activities.",
+    "audience": "Adult students 18+, friends, nature lovers",
+    "travel": [
+        ("Kochi-Munnar", "4-5 hr", "Approximate road travel time."),
+        ("Munnar-Alappuzha", "5-6 hr", "Approximate road travel time."),
+        ("Alappuzha-Kochi", "1.5-2 hr", "Approximate road travel time."),
+    ],
+    "budget": [
+        ("Backpacker", "INR 14k-20k", "Dorms or shared rooms, buses or trains where practical, local meals and shared activities."),
+        ("Group Comfort", "INR 23k-32k", "Private shared rooms, group vehicle on hill days and pre-booked boat activities."),
+        ("Small Private Group", "INR 36k-52k", "Comfort hotels, private car throughout, upgraded dining and a private boat experience."),
+    ],
+    "stays": [
+        ("Kochi", "INR 700-2,800", "Zostel Kochi (Ernakulam) - currently 18+ with a published maximum group size of eight."),
+        ("Munnar", "INR 700-3,500", "The Hosteller Munnar - social dorm and private-room options in the Munnar region."),
+        ("Alappuzha", "INR 700-2,800", "Zostel Alleppey - backpacker stay near Alappuzha Beach and the backwaters."),
+    ],
+    "booking_note": "Rates are indicative nightly planning bands, not live quotes. Confirm minimum age, maximum group size, local-ID rules, check-in time and cancellation terms before paying. Travel to and from Kerala is excluded.",
+}
+
+senior = {
+    "kicker": "Gentle Kerala",
+    "title": "5-Day Easy-Paced Kerala",
+    "subtitle": "Two comfortable overnight bases, short private transfers, slow mornings and an easy daytime backwater experience.",
+    "facts": [
+        ("Duration", "5 days"),
+        ("Pace", "Gentle"),
+        ("Budget", "From INR 34k"),
+        ("Hotel bases", "2"),
+    ],
+    "route": "Kochi - Kumarakom - Kochi",
+    "overview": "A lower-strain route for senior travellers. It removes hill roads and overnight houseboat changes, uses two hotel bases and leaves a rest window every afternoon.",
+    "cover_note": "Accessibility and mobility features should be confirmed directly with each accommodation before booking. Also confirm vehicle access and boat boarding. This guide is not medical advice.",
+    "days": [
+        ("Kochi Arrival + Rest", "Use a pre-booked private car, check in and keep the day free except for a short optional sunset drive.", ["Private arrival", "Hotel rest", "Early dinner"]),
+        ("Easy Kochi Heritage", "Use a car between two or three sights, choose short walks and seated museum time, then return for an afternoon rest.", ["Door-to-door car", "Short walks", "Cultural show"]),
+        ("Kochi To Kumarakom", "Leave after breakfast, include a comfort stop and arrive at the lakeside hotel before lunch or early afternoon.", ["Late start", "Short transfer", "Free afternoon"]),
+        ("Vembanad Backwaters", "Take a two-hour covered motorboat or shikara cruise with stable seating and boarding help confirmed in advance.", ["Covered cruise", "Resort lunch", "Restful evening"]),
+        ("Leisurely Departure", "Have a slow breakfast and drive to Kochi with enough time for a comfort stop, traffic and departure procedures.", ["Slow morning", "Comfort stop", "Departure buffer"]),
+    ],
+    "day_note": "If boarding, weather or balance feels unsafe, replace the cruise with a lakeside resort day. Request airport, rail or hotel assistance in advance when needed.",
+    "audience": "Senior citizens, couples, gentle-pace travellers",
+    "travel": [
+        ("Kochi-Kumarakom", "1.5-2 hr", "Allow extra time for comfort stops."),
+        ("Kumarakom-Kochi", "1.5-2 hr", "Allow extra time for comfort stops."),
+    ],
+    "budget": [
+        ("Essential Comfort", "INR 34k-48k", "Comfort hotels, private car, simple meals and a short covered backwater cruise."),
+        ("Comfortable", "INR 52k-72k", "Better rooms, chauffeur travel, flexible meal stops and a private covered cruise."),
+        ("Premium Ease", "INR 90k-135k", "Premium lake resorts, upgraded rooms, larger vehicle and tailored activities."),
+    ],
+    "stays": [
+        ("Kochi", "INR 6,500-12,000", "KTDC Bolgatty Palace - island resort with road access to central Kochi."),
+        ("Kumarakom", "INR 6,000-10,000", "KTDC Waterscapes - government-run backwater resort beside Vembanad Lake."),
+        ("Kumarakom", "INR 18,000-30,000", "Coconut Lagoon - premium lakeside property; confirm boat boarding and internal distances."),
+    ],
+    "booking_note": "Ask about lifts, buggy service, accessible bathrooms, distance from reception, vehicle drop-off, boat steps and nearby medical support. Confirm requirements in writing.",
+}
+
+
+if __name__ == "__main__":
+    for brochure_name, brochure_data in [
+        ("kerala-5-day-student-plan.pdf", student),
+        ("kerala-5-day-senior-plan.pdf", senior),
+    ]:
+        print(build_brochure(brochure_name, brochure_data))

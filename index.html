@@ -1,19 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visit Kerala | Official-Inspired Travel Guide</title>
+    <title>Visit Kerala | Student Tourism Exhibition Project</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=20260722-1">
+    <link rel="stylesheet" href="style.css?v=20260727-2">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <h1><a href="index.html" class="logo"><span class="text-gold">&</span> VISIT KERALA</a></h1>
+            <a href="index.html" class="logo">VISIT KERALA</a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="destinations.html">Destinations</a></li>
@@ -25,17 +26,18 @@
                 <a href="itineraries.html" class="btn-nav">Plan Trip</a>
                 <a href="profile.html" class="profile-link" title="Profile" aria-label="Open traveller profile"><i class="fa-regular fa-user"></i></a>
             </div>
-            <div class="menu-toggle" id="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+            <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Open navigation menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
         </div>
     </nav>
 
     <section id="hero" class="hero-section">
         <div class="hero-overlay"></div>
-        <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1920&q=80" alt="Kerala backwaters" class="hero-bg">
+        <img decoding="async" fetchpriority="high" src="images/tourists-valiyaparamba.webp" alt="Visitors travelling through Kerala's backwaters" class="hero-bg">
         <div class="hero-content reveal">
             <span class="hero-subtitle">God's Own Country</span>
             <h1 class="hero-title">Plan Kerala By <br><span class="text-gold">Backwater, Beach & Hill</span></h1>
             <p class="hero-description">A polished Kerala travel guide inspired by the official Government of Kerala Tourism resources: iconic destinations, curated vacation lengths, culture, wellness, and practical planning.</p>
+            <p class="project-disclaimer"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> A student-created tourism exhibition project inspired by Kerala Tourism. This is not an official Kerala Tourism website.</p>
             <div class="hero-buttons">
                 <a href="itineraries.html" class="btn-primary">Choose Vacation Plan</a>
                 <a href="destinations.html" class="btn-secondary">Explore Places</a>
@@ -43,18 +45,20 @@
         </div>
     </section>
 
-    <section class="section-padding compact-section">
-        <div class="container split-feature reveal">
-            <div>
-                <span class="subtitle">Why Kerala</span>
-                <h2 class="title left-title">One State, Many Journeys</h2>
-                <p>Kerala Tourism describes the state through tranquil backwaters, sun-kissed hill stations, beaches, cultural heritage, cuisine, wildlife, and Ayurveda. This site turns that official travel inspiration into clear vacation choices.</p>
+    <section class="section-padding compact-section why-kerala-section" aria-labelledby="why-kerala-title">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Why Choose Kerala?</span>
+                <h2 class="title" id="why-kerala-title">One State, Many Journeys</h2>
+                <div class="divider"></div>
             </div>
-            <div class="feature-list">
-                <a href="destinations.html"><i class="fa-solid fa-water"></i><span>Backwaters in Alappuzha and Kumarakom</span></a>
-                <a href="destinations.html"><i class="fa-solid fa-mountain-sun"></i><span>Munnar, Wayanad, Thekkady hill escapes</span></a>
-                <a href="experiences.html"><i class="fa-solid fa-masks-theater"></i><span>Kathakali, Theyyam, cuisine, Ayurveda</span></a>
-                <a href="travel-info.html"><i class="fa-solid fa-circle-info"></i><span>Official links, timing, and trip notes</span></a>
+            <div class="reason-grid">
+                <article class="reason-card reveal"><i class="fa-solid fa-water" aria-hidden="true"></i><h3>Backwaters</h3><p>Quiet canals, village waterways and memorable houseboat journeys.</p></article>
+                <article class="reason-card reveal"><i class="fa-solid fa-mountain-sun" aria-hidden="true"></i><h3>Tea Plantations</h3><p>Cool highlands, green estates and scenic plantation roads.</p></article>
+                <article class="reason-card reveal"><i class="fa-solid fa-paw" aria-hidden="true"></i><h3>Wildlife</h3><p>Forest landscapes, guided nature activities and rich biodiversity.</p></article>
+                <article class="reason-card reveal"><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i><h3>Beaches</h3><p>Cliff walks, lighthouse shores and relaxed Arabian Sea sunsets.</p></article>
+                <article class="reason-card reveal"><i class="fa-solid fa-spa" aria-hidden="true"></i><h3>Ayurveda</h3><p>Traditional wellness experiences from recognised, qualified providers.</p></article>
+                <article class="reason-card reveal"><i class="fa-solid fa-masks-theater" aria-hidden="true"></i><h3>Culture</h3><p>Kathakali, festivals, heritage quarters, crafts and regional cuisine.</p></article>
             </div>
         </div>
     </section>
@@ -69,7 +73,7 @@
             <div class="card-grid">
                 <div class="destination-card reveal">
                     <div class="card-img-wrapper">
-                <img src="https://www.keralatourism.org/ktadmin/img/pages/tablet/munnar-1707133423_2fda65e0bdee7a03a49d.webp" alt="Munnar tea hills">
+                <img loading="lazy" decoding="async" src="https://www.keralatourism.org/ktadmin/img/pages/tablet/munnar-1707133423_2fda65e0bdee7a03a49d.webp" alt="Munnar tea hills">
                         <span class="card-tag">Hills</span>
                     </div>
                     <div class="card-body">
@@ -80,7 +84,7 @@
                 </div>
                 <div class="destination-card reveal">
                     <div class="card-img-wrapper">
-                <img src="https://www.keralatourism.org/ktadmin/img/pages/tablet/aqua-tourism-in-alappuzha-1721740960_19f1417aa79c4026d0c1.webp" alt="Alappuzha backwaters">
+                <img loading="lazy" decoding="async" src="https://www.keralatourism.org/ktadmin/img/pages/tablet/aqua-tourism-in-alappuzha-1721740960_19f1417aa79c4026d0c1.webp" alt="Alappuzha backwaters">
                         <span class="card-tag">Backwaters</span>
                     </div>
                     <div class="card-body">
@@ -91,7 +95,7 @@
                 </div>
                 <div class="destination-card reveal">
                     <div class="card-img-wrapper">
-                <img src="https://www.keralatourism.org/ktadmin/img/pages/tablet/wayanad-1714029895_55f745bc737ca6a7e77c.webp" alt="Wayanad forest">
+                <img loading="lazy" decoding="async" src="https://www.keralatourism.org/ktadmin/img/pages/tablet/wayanad-1714029895_55f745bc737ca6a7e77c.webp" alt="Wayanad forest">
                         <span class="card-tag">Wildlife</span>
                     </div>
                     <div class="card-body">
@@ -116,22 +120,62 @@
                     <span>3 Days</span>
                     <h3>Kochi + Backwaters</h3>
                     <p>Short break through Fort Kochi, Mattancherry, and an Alappuzha houseboat cruise.</p>
+                    <small>From INR 13k for a family of four</small>
                 </a>
                 <a class="package-card" href="plan-5-days.html">
                     <span>5 Days</span>
                     <h3>Hills + Houseboat</h3>
                     <p>Munnar tea country, Thekkady spice and wildlife, then Alappuzha backwaters.</p>
+                    <small>From INR 24k for a family of four</small>
                 </a>
                 <a class="package-card featured" href="plan-7-days.html">
                     <span>7 Days</span>
-                    <h3>Classic Kerala</h3>
-                    <p>Kochi, Munnar, Thekkady, Kumarakom or Alappuzha, with beach time at Varkala or Kovalam.</p>
+                    <h3>Islands, Hills + Coast</h3>
+                    <p>Kochi to Kadamakkudy, Munnar, Thekkady, Munroe Island and Varkala.</p>
+                    <small>From INR 36k for a family of four</small>
                 </a>
                 <a class="package-card" href="plan-10-days.html">
                     <span>10 Days</span>
                     <h3>Kerala Deep Dive</h3>
-                    <p>Add Wayanad, Kozhikode, Kannur, or Bekal for north Kerala culture and coastline.</p>
+                    <p>Kochi, Kadamakkudy and Munroe Island to Munnar, Thekkady, Wayanad, Valiyaparamba and Bekal.</p>
+                    <small>From INR 58k for a family of four</small>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-cream route-flow-section" aria-labelledby="route-flow-title">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">A Classic Route</span>
+                <h2 class="title" id="route-flow-title">From Heritage Streets To The Coast</h2>
+                <div class="divider"></div>
+                <p class="section-intro">A simple route flow showing how Kerala's well-known landscapes can connect in one journey.</p>
+            </div>
+            <div class="kerala-route-flow reveal" aria-label="Kochi to Munnar to Thekkady to Alappuzha to Varkala route">
+                <div class="route-flow-stop"><span><i class="fa-solid fa-landmark" aria-hidden="true"></i></span><strong>Kochi</strong><small>Heritage</small></div>
+                <div class="route-flow-connector"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><small>4-5 hr</small></div>
+                <div class="route-flow-stop"><span><i class="fa-solid fa-leaf" aria-hidden="true"></i></span><strong>Munnar</strong><small>Tea hills</small></div>
+                <div class="route-flow-connector"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><small>3-4 hr</small></div>
+                <div class="route-flow-stop"><span><i class="fa-solid fa-tree" aria-hidden="true"></i></span><strong>Thekkady</strong><small>Forest</small></div>
+                <div class="route-flow-connector"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><small>4-5 hr</small></div>
+                <div class="route-flow-stop"><span><i class="fa-solid fa-sailboat" aria-hidden="true"></i></span><strong>Alappuzha</strong><small>Backwaters</small></div>
+                <div class="route-flow-connector"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i><small>3-4 hr</small></div>
+                <div class="route-flow-stop"><span><i class="fa-solid fa-umbrella-beach" aria-hidden="true"></i></span><strong>Varkala</strong><small>Coast</small></div>
+            </div>
+            <p class="route-time-note reveal"><i class="fa-regular fa-clock" aria-hidden="true"></i> Approximate road travel times only. Traffic, weather, road conditions and stops can change journey times.</p>
+        </div>
+    </section>
+
+    <section class="section-padding planning-difference-section" aria-labelledby="planning-difference-title">
+        <div class="container planning-difference-layout reveal">
+            <div><span class="subtitle">Thoughtful Itineraries</span><h2 class="title left-title" id="planning-difference-title">What Makes Our Plans Different?</h2><p>Our itineraries combine Kerala's famous attractions with lesser-known destinations, helping travellers experience both popular highlights and quieter local places.</p></div>
+            <div class="planning-principles" aria-label="Itinerary planning principles">
+                <span><i class="fa-solid fa-route" aria-hidden="true"></i> Balanced routes</span>
+                <span><i class="fa-solid fa-people-roof" aria-hidden="true"></i> Family-friendly planning</span>
+                <span><i class="fa-solid fa-compass" aria-hidden="true"></i> Famous + offbeat places</span>
+                <span><i class="fa-solid fa-wallet" aria-hidden="true"></i> Practical budget estimates</span>
+                <span><i class="fa-solid fa-sliders" aria-hidden="true"></i> Flexible travel ideas</span>
             </div>
         </div>
     </section>
@@ -144,10 +188,10 @@
                 <div class="divider"></div>
             </div>
             <div class="gallery-grid reveal">
-                <figure class="gallery-item item-tall"><img src="Varkala-Beach.webp" alt="Visitors swimming and relaxing at Varkala Beach"><figcaption>Swim below Varkala's cliffs</figcaption></figure>
-                <figure class="gallery-item"><img src="kovalam-beach-itinerary-1024x576.webp" alt="Visitors enjoying the shore near Kovalam lighthouse"><figcaption>Slow down at Kovalam</figcaption></figure>
-                <figure class="gallery-item"><img src="68.jpg" alt="A family walking through the tea gardens of Munnar"><figcaption>Walk through Munnar's tea country</figcaption></figure>
-                <figure class="gallery-item item-wide"><img src="images.jpg" alt="Visitors boating through the forest landscape at Thekkady"><figcaption>Glide through Thekkady</figcaption></figure>
+                <figure class="gallery-item item-tall"><img loading="lazy" decoding="async" src="Varkala-Beach.webp" alt="Visitors swimming and relaxing at Varkala Beach"><figcaption>Swim below Varkala's cliffs</figcaption></figure>
+                <figure class="gallery-item"><img loading="lazy" decoding="async" src="kovalam-beach-itinerary-1024x576.webp" alt="Visitors enjoying the shore near Kovalam lighthouse"><figcaption>Slow down at Kovalam</figcaption></figure>
+                <figure class="gallery-item"><img loading="lazy" decoding="async" src="68.jpg" alt="A family walking through the tea gardens of Munnar"><figcaption>Walk through Munnar's tea country</figcaption></figure>
+                <figure class="gallery-item item-wide"><img loading="lazy" decoding="async" src="images.jpg" alt="Visitors boating through the forest landscape at Thekkady"><figcaption>Glide through Thekkady</figcaption></figure>
             </div>
         </div>
     </section>
@@ -155,10 +199,26 @@
     <section id="stats" class="stats-section section-padding">
         <div class="stats-overlay"></div>
         <div class="container stats-container">
-            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-water"></i></div><h2 class="counter" data-target="4">0</h2><p>Vacation plan options</p></div>
-            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-map-location-dot"></i></div><h2 class="counter" data-target="12">0</h2><p>Highlighted destinations</p></div>
-            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-spa"></i></div><h2 class="counter" data-target="5">0</h2><p>Core experience themes</p></div>
-            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div><h2 class="counter" data-target="1">0</h2><p>Official tourism source</p></div>
+            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-water"></i></div><h2 class="counter" data-target="6">6</h2><p>Vacation plans</p></div>
+            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-map-location-dot"></i></div><h2 class="counter" data-target="10" data-suffix="+">10+</h2><p>Destinations</p></div>
+            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-spa"></i></div><h2 class="counter" data-target="8">8</h2><p>Experience themes</p></div>
+            <div class="stat-item reveal"><div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div><h2 class="stat-word">Official</h2><p>Tourism references</p></div>
+        </div>
+    </section>
+
+    <section class="section-padding quick-facts-section" aria-labelledby="quick-facts-title">
+        <div class="container">
+            <div class="section-header reveal"><span class="subtitle">Kerala At A Glance</span><h2 class="title" id="quick-facts-title">Quick Facts</h2><div class="divider"></div></div>
+            <dl class="quick-facts-grid reveal">
+                <div><dt>Capital</dt><dd>Thiruvananthapuram</dd></div>
+                <div><dt>State language</dt><dd>Malayalam</dd></div>
+                <div><dt>Currency</dt><dd>Indian Rupee (INR)</dd></div>
+                <div><dt>Time zone</dt><dd>IST (UTC +5:30)</dd></div>
+                <div><dt>State animal</dt><dd>Indian elephant</dd></div>
+                <div><dt>State bird</dt><dd>Great hornbill</dd></div>
+                <div><dt>State flower</dt><dd>Kanikonna</dd></div>
+                <div><dt>Major airports</dt><dd>Kochi, Thiruvananthapuram, Kozhikode + Kannur</dd></div>
+            </dl>
         </div>
     </section>
 
@@ -166,15 +226,15 @@
         <div class="container footer-content">
             <div class="footer-brand">
                 <a href="index.html" class="logo">VISIT KERALA</a>
-                <p class="mt-2">Travel inspiration built from Kerala Tourism, Department of Tourism, Government of Kerala.</p>
+                <p class="mt-2">A student-created tourism exhibition project inspired by Kerala Tourism. Not an official Kerala Tourism website.</p>
             </div>
             <div class="footer-links-wrapper">
-                <div class="footer-column"><h4>Pages</h4><a href="destinations.html">Destinations</a><a href="itineraries.html">Vacation Plans</a><a href="experiences.html">Experiences</a><a href="travel-info.html">Travel Info</a></div>
+                <div class="footer-column"><h4>Pages</h4><a href="destinations.html">Destinations</a><a href="itineraries.html">Vacation Plans</a><a href="experiences.html">Experiences</a><a href="travel-info.html">Travel Info</a><a href="credits.html">Image Credits</a></div>
                 <div class="footer-column"><h4>Official Source</h4><a href="https://www.keralatourism.org/" target="_blank">Kerala Tourism</a><a href="https://www.keralatourism.org/destination/" target="_blank">Destinations</a><a href="https://www.keralatourism.org/faq/what-are-the-must-do-activities-in-a-kerala-tour" target="_blank">Must-do activities</a></div>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2026 Visit Kerala concept website.</p></div>
+        <div class="footer-bottom"><p>&copy; 2026 Visit Kerala student exhibition project.</p></div>
     </footer>
-    <script src="script.js?v=20260722-6"></script>
+    <script src="script.js?v=20260727-2"></script>
 </body>
 </html>
